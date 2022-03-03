@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博瑞拜拜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #app {
+            text-align: center;
+            color: skyblue;
+        }
+
+        #app .imgBox {
+            margin: 0 auto;
+            width: 600px;
+            height: 600px;
+            border: 2px solid skyblue;
+            border-radius: 10px;
+        }
+
+        #app .imgBox img {
+            display: block;
+            width: 100%;
+        }
+
+        #app button {
+            width: 99px;
+            height: 40px;
+            border: 2px solid skyblue;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>小郭毛片网</h2>
+        <div class="imgBox">
+            <img :src="imgUrl" alt="">
+        </div>
+
+        <button @click="changeImg">随机一部毛片</button>
+
+    </div>
+
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: "#app",
+            data: {
+                imgUrl: '',
+            },
+            methods: {
+                changeImg: function () {
+                    var that = this;
+                    axios.get("https://api.thecatapi.com/v1/images/search").then
+                        (function (response) {
+                            console.log(response);
+                            console.log(response.data[0].url);
+                            that.imgUrl = response.data[0].url;
+                        },
+                            function (err) { })
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
